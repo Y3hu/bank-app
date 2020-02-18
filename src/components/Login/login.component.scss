@@ -1,0 +1,85 @@
+// variables:
+$breakpoint-xs: 360px;
+$breakpoint-sm: 767px;
+$breakpoint-md: 1023px;
+$breakpoint-lg: 1360px;
+
+@mixin media($media) {
+  @if $media == xs {
+    @media (max-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $media == sm {
+    @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $media == md {
+    @media (min-width: $breakpoint-md) and (max-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $media == lg {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  }
+}
+
+.container {
+  margin-top: 2vh;
+  min-width: 90%;
+
+  @include media(lg) {
+    margin-top: 8vh;
+  }
+
+  @include media(md) {
+    margin-top: 10vh;
+  }
+}
+
+.row {
+  justify-content: center;
+  margin-bottom: 3vh;
+
+  i {
+    font-size: 4em;
+  }
+
+  .btn-options {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 60%;
+    height: 100%;
+
+    button {
+      border: none;
+      font-size: 20px;
+    }
+  }
+}
+
+.column {
+  margin-bottom: 3vh;
+
+  .carousel-container {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 18vh;
+
+    @include media(lg) {
+      max-width: 60%;
+      margin-bottom: 0;
+    }
+
+    @include media(md) {
+      max-width: 75%;
+      margin-bottom: 0;
+    }
+  }
+  p {
+    text-align: center;
+  }
+}
