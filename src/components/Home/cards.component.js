@@ -13,7 +13,7 @@ export default (props) => {
     return (
         <div className='credit-card'>
             <div className='credit-card__logo'>
-                <img className='logo' src={cardTypeToLogo[props.type]} width="60" />
+                <img className='logo' src={cardTypeToLogo[props.type]} alt="credit card logo" width="60" />
             </div>
 
             <div className='credit-card__number'>{props.number}</div>

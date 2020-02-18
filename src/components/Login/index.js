@@ -19,7 +19,7 @@ const LoginComponent = ({ history, location, fakeAuth }) => {
         <div className="container">
             <div className="column">
                 <div className="row">
-                    <i class="fas fa-piggy-bank align-self-center mr-3"></i>
+                    <i className="fas fa-piggy-bank align-self-center mr-3"></i>
                     <p className="align-self-center mr-3" style={{ fontSize: "35px" }}><strong>BNB</strong></p>
                 </div>
                 <div className="row">

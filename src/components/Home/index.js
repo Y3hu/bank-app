@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import './home.component.scss'
 import CardsComponent from './cards.component'
+import Axios from 'axios'
+import ServiceCardsComponent from './ServiceCards'
 
 const cardsInfo = [
     {
@@ -36,24 +38,67 @@ const cardsInfo = [
     },
 ]
 
-const HomeComponent = props => {
+const HomeComponent = ({ jwt }) => {
+
+    console.log(jwt)
+    useEffect(() => {
+        Axios.get("http://localhost:8080/hello", { headers: { "Authentication": `Bearer ${jwt}` } })
+    })
 
     return (
         <div className="container">
-            <div className="cards-container">
-                {
-                    cardsInfo.map((c, i) => (
-                        <CardsComponent
-                            key={`card${i}`}
-                            type={c.type}
-                            name={c.name}
-                            number={c.number}
-                            expiry={c.expiry}
-                        />
-                    ))
-                }
+            <h4>Accounts</h4>
+            <div className="column">
+                <div className="cards-container">
+
+                    {
+                        cardsInfo.map((c, i) => (
+                            <CardsComponent
+                                key={`card${i}`}
+                                type={c.type}
+                                name={c.name}
+                                number={c.number}
+                                expiry={c.expiry}
+                            />
+                        ))
+                    }
+                </div>
+
             </div>
-            <div className="">
+            <div className="column">
+                <h4>Payments</h4>
+                <div className="column">
+                    <h6>Mobiles</h6>
+                    <div className="row">
+                        {
+                            [0, 1, 2].map(e => (
+                                <ServiceCardsComponent key={e} />
+                            ))
+                        }
+                    </div>
+                </div>
+
+                <div className="column">
+                    <h6>Electricity</h6>
+                    <div className="row">
+                        {
+                            [0, 1, 2].map(e => (
+                                <ServiceCardsComponent key={e} />
+                            ))
+                        }
+                    </div>
+                </div>
+
+                <div className="column">
+                    <h6>Water</h6>
+                    <div className="row">
+                        {
+                            [0, 1, 2].map(e => (
+                                <ServiceCardsComponent key={e} />
+                            ))
+                        }
+                    </div>
+                </div>
 
             </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,9 +11,19 @@ import LoginComponent from './Login'
 import HomeComponent from './Home';
 import MovesComponent from './Moves'
 
+import './App.scss'
+import Axios from 'axios';
+
 export default function SimpleContainer() {
 
   const [isAuthenticated, setAuthenticated] = useState(false)
+  const [jwt, setJwt] = useState("")
+
+  useEffect(() => {
+    Axios.post("http://localhost:8080/authenticate", { username: "foo", password: "foo" })
+      .then(res => setJwt(res.data.jwt))
+      .catch(err => console.log(err))
+  })
 
   const fakeAuth = {
     authenticate(cb) {
@@ -54,7 +64,7 @@ export default function SimpleContainer() {
       <div className="container">
         <Switch>
           <PrivateRoute path="/home" >
-            <HomeComponent />
+            <HomeComponent jwt={jwt}/>
           </PrivateRoute>
           <PrivateRoute path="/moves" >
             <MovesComponent />
