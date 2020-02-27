@@ -15,13 +15,13 @@ const CarouselComponent = props => {
             </ol>
             <div className="carousel-inner">
                 <div className="carousel-item active">
-                    <img src={Promo1} className="d-block w-100" alt="Promo1" />
+                    <img src={Promo1} className="d-block" alt="Promo1" style={{ maxWidth: "100%" }} />
                 </div>
                 <div className="carousel-item">
-                    <img src={Promo2} className="d-block w-100" alt="Promo2" />
+                    <img src={Promo2} className="d-block" alt="Promo2" style={{ maxWidth: "100%" }} />
                 </div>
                 <div className="carousel-item">
-                    <img src={Promo3} className="d-block w-100" alt="Promo3" />
+                    <img src={Promo3} className="d-block" alt="Promo3" style={{ maxWidth: "100%" }} />
                 </div>
             </div>
             <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

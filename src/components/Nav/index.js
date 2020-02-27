@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const NavComponent = props => {
+const NavComponent = ({ exchangeRate }) => {
 
     return (
 
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">Navbar</a>
+            <i className="navbar-brand">Bankizi</i>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -14,19 +14,15 @@ const NavComponent = props => {
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li className="nav-item">
-                    <Link className="nav-link" to="/home">Home <span className="sr-only">(current)</span></Link>
+                        <Link className="nav-link" to="/home">Home <span className="sr-only">(current)</span></Link>
                     </li>
                     <li className="nav-item">
-                    <Link className="nav-link" to="/moves">Movements <span className="sr-only">(current)</span></Link>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">Disabled</a>
+                        <Link className="nav-link" to="/wallet">Wallet <span className="sr-only">(current)</span></Link>
                     </li>
                 </ul>
-                <form className="form-inline my-2 my-lg-0">
-                    <input className="form-control mr-sm-2" type="search" placeholder="Search" />
-                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+
+                <p className="btn btn-outline-primary btn-lg" role="alert" style={{ textAlign: "center" }}>{`compra: ₡${exchangeRate.purchase} | venta: ₡${exchangeRate.sale}`}</p>
+
             </div>
         </nav>
 

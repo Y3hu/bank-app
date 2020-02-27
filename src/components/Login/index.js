@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom'
-
+import Login from './login.component'
 import CarouselCompoent from './carousel.component'
+import ModalComponent from '../Shared/modal.component';
 
 import './login.component.scss'
 
-const LoginComponent = ({ history, location, fakeAuth }) => {
+const LoginComponent = ({ history, location, fakeAuth, exchangeRate }) => {
 
     let { from } = location.state || { from: { pathname: "/home" } }
 
     let login = () => {
+        //axios.get(`http://localhost:8080/api/account/${userId}`)
         fakeAuth.authenticate(() => {
             history.replace(from)
         })
@@ -20,7 +22,7 @@ const LoginComponent = ({ history, location, fakeAuth }) => {
             <div className="column">
                 <div className="row">
                     <i className="fas fa-piggy-bank align-self-center mr-3"></i>
-                    <p className="align-self-center mr-3" style={{ fontSize: "35px" }}><strong>BNB</strong></p>
+                    <p className="align-self-center mr-3" style={{ fontSize: "35px" }}><strong>BANKIZI</strong></p>
                 </div>
                 <div className="row">
                     <div className="carousel-container">
@@ -29,14 +31,12 @@ const LoginComponent = ({ history, location, fakeAuth }) => {
                     </div>
                 </div>
                 <div className="row">
-                    <button type="button" className="btn btn-outline-primary btn-lg btn-block">Continue with Google</button>
+                    <p className="btn btn-outline-primary btn-lg">{`compra: ₡${exchangeRate.purchase} | venta: ₡${exchangeRate.sale}`}</p>
                 </div>
                 <div className="row">
-                    <div className="btn-options" role="group" aria-label="Button Options">
-                        <button type="button" className="btn btn-outline-secondary" onClick={e => login()}>Log in</button>
-                        |
-                        <button type="button" className="btn btn-outline-secondary">Sign up</button>
-                    </div>
+
+                    <ModalComponent buttonName={"Login"} func={login} Children={Login} />
+
                 </div>
             </div>
         </div>

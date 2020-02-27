@@ -1,15 +1,16 @@
 import React from 'react'
-import Claro from '../../../assets/movistar.svg'
+import { Link } from 'react-router-dom'
 
-const ServiceCardsComponent = _ => {
+import './service.component.scss'
+
+const ServiceCardsComponent = ({ logo, company, color }) => {
     return (
-        <div className="card text-center" style={{ width: "7rem", height: "7rem" }}>
+        <Link className="card text-center" style={{ backgroundColor: color }} to={`/payment/${company}`}>
             <div className="card-body">
-                <img src={Claro} alt="service card" style={{ backgroundColor: "white" }} />
-                <p className="card-text">movistar</p>
+                <img src={logo} alt="service card" />
 
             </div>
-        </div>
+        </Link>
     )
 }
 

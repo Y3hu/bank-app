@@ -1,0 +1,48 @@
+// variables:
+$breakpoint-xs: 360px;
+$breakpoint-sm: 767px;
+$breakpoint-md: 1023px;
+$breakpoint-lg: 1360px;
+
+@mixin media($media) {
+  @if $media == xs {
+    @media (max-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $media == sm {
+    @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $media == md {
+    @media (min-width: $breakpoint-md) and (max-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $media == lg {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  }
+}
+
+.graphContainer {
+  & > canvas {
+    width: 100%;
+  }
+  width: 50vw;
+  background: white;
+  padding: 0 20px 0 20px;
+  margin-bottom: 5%;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 10px 0px -5px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 10px 0px -5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 10px 0px -5px rgba(0, 0, 0, 0.3);
+}
+
+@media only screen and (max-width: 600px) {
+  .graphContainer {
+    display: none;
+    visibility: hidden;
+    width: 0;
+    
+  }
+}
