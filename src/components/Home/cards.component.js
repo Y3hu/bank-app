@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 import './home.component.scss';
 import visaLogo from '../../assets/visa_logo.png';
@@ -10,8 +11,13 @@ const cardTypeToLogo = {
 };
 
 export default (props) => {
+
+    const retrieveAccountMovements = _ => {
+        props.func(props.id)
+    }
+
     return (
-        <div className='credit-card'>
+        <Link className='credit-card' to={`/moves/${props.id}`} onClick={e => retrieveAccountMovements()}>
             <div className='credit-card__logo'>
                 <img className='logo' src={cardTypeToLogo[props.type]} alt="credit card logo" width="60" />
             </div>
@@ -30,6 +36,6 @@ export default (props) => {
                 </div>
             </div>
 
-        </div>
+        </Link>
     );
 }

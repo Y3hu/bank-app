@@ -10,20 +10,28 @@ import NavComponent from './Nav'
 import LoginComponent from './Login'
 import HomeComponent from './Home';
 import MovesComponent from './Moves'
+import PaymentComponent from './Payment'
+import ChatBot from './Shared/ChatBot'
+import FavoriteComponent from './Favorite';
 
 import './App.scss'
 import Axios from 'axios';
+import WalletComponent from './Wallet';
+import NewMovementComponent from './NewMovement';
 
-export default function SimpleContainer() {
+const SimpleContainer = () => {
 
   const [isAuthenticated, setAuthenticated] = useState(false)
-  const [jwt, setJwt] = useState("")
+  const [exchangeRate, setExchangeRate] = useState({
+    purchase: "",
+    sale: ""
+  })
 
   useEffect(() => {
-    Axios.post("http://localhost:8080/authenticate", { username: "foo", password: "foo" })
-      .then(res => setJwt(res.data.jwt))
+    Axios.get("https://tipodecambio.paginasweb.cr/api")
+      .then(res => setExchangeRate({ purchase: res.data.compra, sale: res.data.venta }))
       .catch(err => console.log(err))
-  })
+  }, [])
 
   const fakeAuth = {
     authenticate(cb) {
@@ -55,26 +63,44 @@ export default function SimpleContainer() {
       />
     )
   }
+
   return (
     <Router>
       {
-        (isAuthenticated) ? <NavComponent fakeAuth={fakeAuth} />
+        (isAuthenticated) ? <NavComponent exchangeRate={exchangeRate} fakeAuth={fakeAuth} />
           : ''
       }
       <div className="container">
         <Switch>
           <PrivateRoute path="/home" >
-            <HomeComponent jwt={jwt}/>
+            <HomeComponent />
           </PrivateRoute>
-          <PrivateRoute path="/moves" >
+          <PrivateRoute path="/moves/:id" >
             <MovesComponent />
           </PrivateRoute>
-
+          <PrivateRoute path="/payment/:entity" >
+            <PaymentComponent />
+          </PrivateRoute>
+          <PrivateRoute path="/favorite">
+            <FavoriteComponent />
+          </PrivateRoute>
+          <PrivateRoute path="/transfer">
+            <NewMovementComponent />
+          </PrivateRoute>
+          <PrivateRoute path="/wallet">
+            <WalletComponent />
+          </PrivateRoute>
           <Route exact path="/">
-            <LoginComponent fakeAuth={fakeAuth} />
+            <LoginComponent exchangeRate={exchangeRate} fakeAuth={fakeAuth} />
           </Route>
         </Switch>
       </div>
+      {
+        (isAuthenticated) ? <div className="chat-bot"><ChatBot /></div>
+          : ''
+      }
     </Router>
   )
 }
+
+export default SimpleContainer
