@@ -53,6 +53,9 @@ const AddAccountComponent = ({ func }) => {
 	return (
 		<div className="card">
 			<h5 className="card-header">
+				<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 				Adding Account Form
 			</h5>
 			<div className="card-body">

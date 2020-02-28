@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { useAuthorForm } from '../Hooks/forms-values.hook'
 
-const baseUrl = "https://9043246e.ngrok.io"
+const baseUrl = "https://71748ac2.ngrok.io"
 
 const LoginComponent = ({ func, fakeAuth }) => {
     const { values, updateValues, reset } = useAuthorForm({
@@ -79,6 +79,9 @@ const LoginComponent = ({ func, fakeAuth }) => {
     return (
         <div className="card">
             <h5 className="card-header">
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 Log In {userInfo.username}
             </h5>
             <div className="card-body">

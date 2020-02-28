@@ -17,6 +17,7 @@ import FavoriteComponent from './Favorite';
 import './App.scss'
 import Axios from 'axios';
 import WalletComponent from './Wallet';
+import NewMovementComponent from './NewMovement';
 
 const SimpleContainer = () => {
 
@@ -82,6 +83,9 @@ const SimpleContainer = () => {
           </PrivateRoute>
           <PrivateRoute path="/favorite">
             <FavoriteComponent />
+          </PrivateRoute>
+          <PrivateRoute path="/transfer">
+            <NewMovementComponent />
           </PrivateRoute>
           <PrivateRoute path="/wallet">
             <WalletComponent />

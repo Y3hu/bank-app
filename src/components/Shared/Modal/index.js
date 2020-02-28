@@ -10,9 +10,6 @@ const ModalComponent = ({ buttonName, func, Children }) => {
             <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                         <Children func={func} />
                     </div>
                 </div>

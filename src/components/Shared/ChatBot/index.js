@@ -24,7 +24,7 @@ function CustomChatbot({ history, location }) {
     const steps = [
         {
             id: "Greet",
-            message: "Hello, Welcome to our shop",
+            message: "Hello, Welcome to Bankizi.",
             trigger: "Ask Name"
         },
         {

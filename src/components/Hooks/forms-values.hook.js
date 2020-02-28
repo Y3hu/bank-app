@@ -8,9 +8,12 @@ export const useAuthorForm = initialState => {
         setValues({ ...values, [e.target.name]: e.target.value })
     }
 
+    const setItem = value => setValues({ ...values, value })
+
     return {
         values,
         updateValues,
+        setItem,
         reset: () => setValues({}),
     }
 }

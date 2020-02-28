@@ -109,7 +109,7 @@ const water = [
     }
 ]
 
-const baseUrl = "https://9043246e.ngrok.io"
+const baseUrl = "https://71748ac2.ngrok.io"
 
 const HomeComponent = () => {
 
@@ -137,13 +137,13 @@ const HomeComponent = () => {
             .then(res => {
                 setAccounts(res.data)
                 if (res.data) {
-                    console.log(res.data)
                     setAccounts(res.data)
                     return res.data
                 }
                 return []
             })
             .then(accounts => {
+                localStorage.setItem("accounts", JSON.stringify(accounts))
                 if (accounts.length >= 0) giveCards(accounts, localJwt)
             })
             .catch(err => console.log(err))
@@ -151,12 +151,14 @@ const HomeComponent = () => {
 
     const giveCards = (accountsFound, jwt) => {
         accountsFound.map(c => {
+
             axios.get(`${baseUrl}/api/card/${c.id}`, {
                 headers: {
                     "Authorization": `Bearer ${jwt}`
                 }
             })
                 .then(res => {
+                    console.log(res)
                     if (res.data.length >= 0) {
                         setCards(c => [...c, ...res.data])
                         setSpinner(false)
@@ -169,6 +171,7 @@ const HomeComponent = () => {
 
     const retrieveAccountMovements = id => {
         let accountFound = accounts.find(a => a.id === id)
+        console.log(id)
         if (accountFound && accountFound.movements) {
             localStorage.setItem("movements", JSON.stringify(accountFound.movements))
             localStorage.setItem("currency", JSON.stringify(accountFound.currency))
@@ -231,11 +234,11 @@ const HomeComponent = () => {
 
             <div className="column">
                 <div className="cards-container">
-                    {
+                    {(spinner) ? <div className="spinner-container"><SpinnerComponent /></div> :
                         cards.map((c, i) => (
                             <CardsComponent
                                 key={`card${i}`}
-                                id={c.id}
+                                id={c.accountId}
                                 type={c.entity}
                                 name={c.userName}
                                 number={c.cardNumber}
@@ -252,7 +255,7 @@ const HomeComponent = () => {
                 <div className="column">
                     <h6>Mobiles</h6>
                     <div className="row services-container">
-                        {(spinner) ? <SpinnerComponent /> :
+                        {
                             mobiles.map((e, i) => (
                                 <ServiceCardsComponent key={i} logo={e.logo} company={e.company} color={e.color} />
                             ))

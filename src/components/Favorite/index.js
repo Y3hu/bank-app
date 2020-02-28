@@ -1,17 +1,18 @@
-import React, { useEffect } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+//import axios from 'axios'
 
+//const baseUrl = "https://074ad93b.ngrok.io"
 const FavoriteComponent = props => {
+    // eslint-disable-next-line
+    const [jwt, setJwt] = useState('')
 
     useEffect(() => {
-        //?all=no&id=2
-        axios.get("http://localhost:8080/api/account/?all=yes&id=0")
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err))
-    })
+        let localJwt = JSON.parse(localStorage.getItem("jwt"))
+        setJwt(localJwt)
+    }, [])
 
     return (
-        <div>Favorite</div>
+        <h4>Favorite</h4>
     )
 }
 

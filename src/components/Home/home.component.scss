@@ -32,6 +32,10 @@ $breakpoint-lg: 1360px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+
+    button {
+      margin-top: -5%;
+    }
   }
 }
 
@@ -39,6 +43,14 @@ $breakpoint-lg: 1360px;
   display: flex;
   overflow-x: auto;
   width: 100%;
+
+  .spinner-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 8rem;
+  }
 
   &::-webkit-scrollbar {
     width: 15px;
