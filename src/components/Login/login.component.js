@@ -3,7 +3,9 @@ import axios from 'axios'
 
 import { useAuthorForm } from '../Hooks/forms-values.hook'
 
-const LoginComponent = ({ login }) => {
+const baseUrl = "https://9043246e.ngrok.io"
+
+const LoginComponent = ({ func, fakeAuth }) => {
     const { values, updateValues, reset } = useAuthorForm({
         InputEmail: '',
         InputPassword: ''
@@ -11,11 +13,9 @@ const LoginComponent = ({ login }) => {
     // eslint-disable-next-line
     const [userInfo, setUserInfo] = useState({})
 
-    //let UsersArray = JSON.parse(localStorage.getItem('UsersArray')) || []
-
     const onSubmitForm = e => {
         e.preventDefault()
-        findUser(e)
+        authenticate(e)
     }
 
     const validateForm = e => {
@@ -29,13 +29,30 @@ const LoginComponent = ({ login }) => {
         return true
     }
 
-    const findUser = e => {
+    const authenticate = e => {
         //return UsersArray.find((element, index) => element.InputName === values.InputName)
 
-        axios.get("http://localhost:8080/api/user", {
+        axios.post(`${baseUrl}/authenticate`, { username: "foo", password: "foo" })
+            .then(res => {
+                localStorage.setItem("jwt", JSON.stringify(res.data.jwt))
+            })
+            .then(() => {
+                findUser(e)
+            })
+            .catch(err => console.log(err))
+    }
+
+    const findUser = e => {
+        let jwt = JSON.parse(localStorage.getItem('jwt'))
+        console.log(jwt)
+
+        axios.get(`${baseUrl}/api/user/`, {
             params: {
                 "email": values.InputEmail,
                 "password": values.InputPassword
+            },
+            headers: {
+                "Authorization": `Bearer ${jwt}`
             }
         })
             .then(res => {
@@ -47,7 +64,7 @@ const LoginComponent = ({ login }) => {
                 } else return 0
 
                 if (JSON.parse(sessionStorage.getItem("user"))) {
-                    login()
+                    func()
                     reset()
                 }
                 else {

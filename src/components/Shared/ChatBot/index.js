@@ -1,10 +1,11 @@
 import React from "react";
 import ChatBot from "react-simple-chatbot";
 import { ThemeProvider } from "styled-components";
+import { withRouter } from 'react-router-dom'
 
-function CustomChatbot(props) {
+function CustomChatbot({ history, location }) {
     const config = {
-       
+
         floating: true
     };
 
@@ -53,6 +54,16 @@ function CustomChatbot(props) {
                     value: "balance",
                     label: "Balance",
                     trigger: "Helping with balance"
+                },
+                {
+                    value: "favorite",
+                    label: "Favorite",
+                    trigger: "Helping with favorite"
+                },
+                {
+                    value: "wallet",
+                    label: "Wallet",
+                    trigger: "Helping with wallet"
                 }
             ]
         },
@@ -63,8 +74,54 @@ function CustomChatbot(props) {
         },
         {
             id: "Helping with transference",
-            message: "OK, go to the navbar and select home, then select the account you want to debit",
+            message: "OK, select the account you want to use to make a transference, then click on the add button and fill the form.",
             trigger: "Asking if helpful"
+        },
+        {
+            id: "Helping with favorite",
+            message: "Would you like me to take you there?",
+            trigger: "Redirecting to"
+        },
+        {
+            id: "Helping with wallet",
+            message: "Would you like me to take you there?",
+            trigger: "Redirecting to wallet"
+        },
+        {
+            id: "Redirecting to",
+            options: [
+                {
+                    value: true,
+                    label: "Yes",
+                    trigger: () => {
+                        redirecting("/favorite")
+                        return "Asking if helpful"
+                    }
+                },
+                {
+                    value: "false",
+                    label: "No",
+                    trigger: "Ask for another option"
+                }
+            ]
+        },
+        {
+            id: "Redirecting to wallet",
+            options: [
+                {
+                    value: true,
+                    label: "Yes",
+                    trigger: () => {
+                        redirecting("/wallet")
+                        return "Asking if helpful"
+                    }
+                },
+                {
+                    value: "false",
+                    label: "No",
+                    trigger: "Ask for another option"
+                }
+            ]
         },
         {
             id: "Asking if helpful",
@@ -118,6 +175,10 @@ function CustomChatbot(props) {
         }
     ];
 
+    const redirecting = goTo => {
+        history.push(goTo)
+    }
+
     return (
         <ThemeProvider theme={theme}>
             <ChatBot steps={steps} {...config} />
@@ -125,4 +186,4 @@ function CustomChatbot(props) {
     )
 }
 
-export default CustomChatbot;
+export default withRouter(CustomChatbot)

@@ -7,8 +7,7 @@ const ServiceCardsComponent = ({ logo, company, color }) => {
     return (
         <Link className="card text-center" style={{ backgroundColor: color }} to={`/payment/${company}`}>
             <div className="card-body">
-                <img src={logo} alt="service card" />
-
+                <img src={logo} alt="service card" title={company} />
             </div>
         </Link>
     )

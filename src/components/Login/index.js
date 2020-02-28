@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom'
 import Login from './login.component'
 import CarouselCompoent from './carousel.component'
-import ModalComponent from '../Shared/modal.component';
+import ModalComponent from '../Shared/Modal';
 
 import './login.component.scss'
 
-const LoginComponent = ({ history, location, fakeAuth, exchangeRate }) => {
+const LoginComponent = ({ history, location, fakeAuth, exchangeRate, setJwt }) => {
 
     let { from } = location.state || { from: { pathname: "/home" } }
 
-    let login = () => {
-        //axios.get(`http://localhost:8080/api/account/${userId}`)
+    let login = _ => {
         fakeAuth.authenticate(() => {
-            history.replace(from)
+            history.replace(from);
         })
     }
 
@@ -34,9 +33,7 @@ const LoginComponent = ({ history, location, fakeAuth, exchangeRate }) => {
                     <p className="btn btn-outline-primary btn-lg">{`compra: ₡${exchangeRate.purchase} | venta: ₡${exchangeRate.sale}`}</p>
                 </div>
                 <div className="row">
-
                     <ModalComponent buttonName={"Login"} func={login} Children={Login} />
-
                 </div>
             </div>
         </div>

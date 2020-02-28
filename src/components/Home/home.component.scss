@@ -26,6 +26,15 @@ $breakpoint-lg: 1360px;
   }
 }
 
+.container {
+  width: 100%;
+  .header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+}
+
 .cards-container {
   display: flex;
   overflow-x: auto;
@@ -93,7 +102,7 @@ $breakpoint-lg: 1360px;
     align-items: flex-end;
   }
 
-  &:hover{
+  &:hover {
     text-decoration: none;
     color: #fff;
     opacity: 0.8;
